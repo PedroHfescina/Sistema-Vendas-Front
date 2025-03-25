@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import LogoImg from "../../assets/logo.svg";
-import { MdDashboard, MdProductionQuantityLimits, MdExitToApp, MdAddShoppingCart, MdClose, MdMenu } from 'react-icons/md';
+import { MdDashboard, MdArrowDownward, MdArrowUpward, MdExitToApp, MdAddShoppingCart,  MdClose, MdMenu, MdBusiness } from 'react-icons/md';
 import { Container, Header, LogImg, MenuContainer, MenuItemLink, Title, MenuItemButton, ToggleMenu, ThemeToggleFooter } from './styles';
 import Toggle from "../Toggler";
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/auth';
 import { useTheme } from '../../hooks/theme';
-import { useNavigate } from 'react-router-dom'; // Importando o useNavigate
+import { useNavigate } from 'react-router-dom'; 
 
 const Aside: React.FC = () => {
   const { signOut } = useAuth();
   const { toggleTheme, theme } = useTheme();
   const [toggleMenuIsOpened, setToggleMenuIsOpened] = useState(false);
   const [darkTheme, setDarkTheme] = useState(() => theme.title === 'dark' ? true : false);
-  const navigate = useNavigate(); // Inicializando o navigate
+  const navigate = useNavigate(); 
 
   const handleToggleMenu = () => {
     setToggleMenuIsOpened(!toggleMenuIsOpened);
@@ -25,8 +25,8 @@ const Aside: React.FC = () => {
   };
 
   const handleLogout = () => {
-    signOut(); // Realiza o logout
-    navigate('/'); // Redireciona para a página de login
+    signOut();                                  // Realiza o botao logout
+    navigate('/');                              // Redireciona para a pagina de login
   };
 
   return (
@@ -37,7 +37,7 @@ const Aside: React.FC = () => {
         </ToggleMenu>
 
         <LogImg src={LogoImg} alt="Logo minha carteira" />
-        <Title>Minha Carteira</Title>
+        <Title>Sistema de Vendas</Title>
       </Header>
 
       <MenuContainer>
@@ -45,14 +45,10 @@ const Aside: React.FC = () => {
           <MdDashboard />
           Dashboard
         </MenuItemLink>
-        <MenuItemLink as={Link} to="/cadastro_estoque">
-          <MdAddShoppingCart />
-          Cadastro Estoque
-        </MenuItemLink>
 
-        <MenuItemLink as={Link} to="/list/entry-balance">
-          <MdProductionQuantityLimits />
-          Produtos
+        <MenuItemLink as={Link} to="/controle_estoque">
+          <MdBusiness />
+         Controle Estoque
         </MenuItemLink>
 
         <MenuItemButton onClick={handleLogout}>

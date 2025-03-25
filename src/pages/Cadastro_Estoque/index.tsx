@@ -1,7 +1,8 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
 import ContentHeader from "../../components/ContentHeader";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { IoArrowBack } from "react-icons/io5";
 
 const Container = styled.div``;
 
@@ -59,6 +60,8 @@ const Button = styled.button`
 const Page = styled.button`
   width: 110px;
   height: 40px;
+  margin-right: 43px;
+  margin-top: 5px;
   border-radius: 7px;
   background-color: ${(props) => props.theme.colors.warning};
   color: ${(props) => props.theme.colors.white};
@@ -86,19 +89,34 @@ const Page = styled.button`
 `;
 
 type Product = {
-  name: string;
-  category: string;
-  price: string;
-  quantity: string;
+  nome: string;
+  categoria: string;
+  data: string; 
+  preco: string;
 };
+
+const BackButton = styled.button`
+  width: 105px;
+  padding: 10px;
+  border-radius: 7px;
+  background-color: ${props => props.theme.colors.secondary};
+  color: ${props => props.theme.colors.white};
+  font-size: 18px;
+  cursor: pointer;
+  font-weight: bold;
+  
+  &:hover {
+    text-decoration: none;
+  }
+`;
 
 const CadastroProdutos: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [formData, setFormData] = useState<Product>({
-    name: "",
-    category: "",
-    price: "",
-    quantity: "",
+    nome: "",
+    categoria: "",
+    data: "", 
+    preco: "",
   });
 
   const navigate = useNavigate();
@@ -127,7 +145,7 @@ const CadastroProdutos: React.FC = () => {
       const newProduct = await response.json();
       setProducts([...products, newProduct]);
 
-      setFormData({ name: "", category: "", price: "", quantity: "" });
+      setFormData({ nome: "", categoria: "", data: "", preco: "" });
 
       console.log("Produto cadastrado com sucesso!", newProduct);
     } catch (error) {
@@ -136,32 +154,65 @@ const CadastroProdutos: React.FC = () => {
   };
 
   const handleClick = () => {
-    navigate("/list/entry-balance");
+    navigate("/estoque");
   };
 
   return (
     <Container>
       <ContentHeader title="Cadastro" lineColor="#E44C4E">
-        <Page type="button" onClick={handleClick}>Ver Produtos</Page>
+        <Page type="button" onClick={handleClick}>
+          Ver Produtos
+        </Page>
+
+                      <BackButton onClick={() => navigate("/controle_estoque")}>
+                      <IoArrowBack size={16}/> Voltar
+                      </BackButton>
+
       </ContentHeader>
 
       <Questionario>
         <Title>Produtos</Title>
         <Form onSubmit={handleAddProduct}>
-          <Select name="category" value={formData.category} onChange={handleInputChange} required>
+          <Select
+            name="categoria"
+            value={formData.categoria}
+            onChange={handleInputChange}
+            required
+          >
             <option value="" disabled>
               Selecione uma categoria
             </option>
-            <option value="bebidas">Bebidas</option>
-            <option value="lanches">Lanches</option>
-            <option value="doces">Doces</option>
+            <option value="BEBIDAS">Bebidas</option>
+            <option value="LANCHES">Lanches</option>
+            <option value="DOCES">Doces</option>
           </Select>
 
-          <Input type="text" name="name" placeholder="Nome do produto" value={formData.name} onChange={handleInputChange} required />
+          <Input
+            type="text"
+            name="nome"
+            placeholder="Nome do produto"
+            value={formData.nome}
+            onChange={handleInputChange}
+            required
+          />
 
-          <Input type="number" name="price" placeholder="Preço unitário" value={formData.price} onChange={handleInputChange} required />
+          <Input
+            type="number"
+            name="preco"
+            placeholder="Preço unitário"
+            value={formData.preco}
+            onChange={handleInputChange}
+            required
+          />
 
-          <Input type="number" name="quantity" placeholder="Quantidade inicial" value={formData.quantity} onChange={handleInputChange} required />
+          <Input
+            type="date" 
+            name="data"
+            placeholder="Data (dia/mês/ano)"
+            value={formData.data}
+            onChange={handleInputChange}
+            required
+          />
 
           <Button type="submit">Adicionar Produto</Button>
         </Form>

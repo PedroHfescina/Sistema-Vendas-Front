@@ -48,6 +48,7 @@ export const LogImg = styled.img`
     height: 40px;
     width: 40px;
 
+
      @media(max-width: 800px){
         display: none;
     }
