@@ -91,7 +91,6 @@ const Page = styled.button`
 type Product = {
   nome: string;
   categoria: string;
-  data: string; 
   preco: string;
 };
 
@@ -114,8 +113,7 @@ const CadastroProdutos: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [formData, setFormData] = useState<Product>({
     nome: "",
-    categoria: "",
-    data: "", 
+    categoria: "", 
     preco: "",
   });
 
@@ -145,7 +143,7 @@ const CadastroProdutos: React.FC = () => {
       const newProduct = await response.json();
       setProducts([...products, newProduct]);
 
-      setFormData({ nome: "", categoria: "", data: "", preco: "" });
+      setFormData({ nome: "", categoria: "", preco: "" });
 
       console.log("Produto cadastrado com sucesso!", newProduct);
     } catch (error) {
@@ -201,15 +199,6 @@ const CadastroProdutos: React.FC = () => {
             name="preco"
             placeholder="Preço unitário"
             value={formData.preco}
-            onChange={handleInputChange}
-            required
-          />
-
-          <Input
-            type="date" 
-            name="data"
-            placeholder="Data (dia/mês/ano)"
-            value={formData.data}
             onChange={handleInputChange}
             required
           />

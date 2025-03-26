@@ -184,16 +184,6 @@ const RegistroEntradas: React.FC = () => {
       <ContainerForm>
         <Title>Registro de Entradas</Title>
 
-        {/* Select Categoria */}
-        <SelectContainer>
-          <Select
-            options={mockCategorias}
-            onChange={(selected) => setCategoriaSelecionada(selected ? selected.value : '')}
-            placeholder="Selecione a Categoria"
-            value={mockCategorias.find((cat) => cat.value === categoriaSelecionada)}
-          />
-        </SelectContainer>
-
         {/* Select Produto */}
         <SelectContainer>
           <Select
@@ -224,15 +214,6 @@ const RegistroEntradas: React.FC = () => {
         <Button onClick={handleAddVenda}>Registrar Venda</Button>
       </ContainerForm>
 
-      <Title>Lista de Produtos</Title>
-      <List>
-        {produtos.map(produto => (
-          <ListItem key={produto.id}>
-            <ListItemName>{produto.nome}</ListItemName>
-            <ListItemQuantity>{produto.quantidade}</ListItemQuantity>
-          </ListItem>
-        ))}
-      </List>
     </Container>
     </div>
   );
